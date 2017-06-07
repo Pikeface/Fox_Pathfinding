@@ -69,32 +69,30 @@ public class SpawnerXML : MonoBehaviour
         }
     }
 
-
-
-
+    /*
     // saves whatever data value is to XML file
     public void Save()
     {
         // SET data to new Data 
-        // data = new string Data; 
+        data = new string Data; 
 
         // SET objects to objects in spawner
-        // GameObject objects = Spawner.objects;
+        GameObject objects = Spawner.objects;
 
         // SET data.spawners to new SpawnerData[objects.Count]
-        // data.spawners = new SpawnerData[objects.Count]
+        data.spawners = new SpawnerData[objects.Count]
 
         // FOR i= 0 to objects.count 
-        //     for (int i = 0; i < objects.spawnerData.Count;  i++)
-        // {
-
-        //}
-
+           for (int i = 0; i < objects.spawnerData.Count;  i++)
+        
         // SET (new variable) spawner to new SpawnerData
-        // SET item to objects[i]
+        / SET item to objects[i]
         // SET spawner's position to items position 
+
         // SET spawner's rotatin to items rotation 
+
         // SET data.spawners[i] = spawner;
+
         // CALL SaveToPath(fullPath)
     }
 
@@ -123,5 +121,5 @@ public class SpawnerXML : MonoBehaviour
         // CALL Apply()
 
     }
-
+    */
 }

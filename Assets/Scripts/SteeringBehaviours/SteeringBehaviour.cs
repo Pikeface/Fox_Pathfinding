@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AIAgent))]
-
 public class SteeringBehaviour : MonoBehaviour
 {
     public float weighting = 7.5f;
@@ -12,7 +11,7 @@ public class SteeringBehaviour : MonoBehaviour
     
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         owner = GetComponent<AIAgent>();
     }

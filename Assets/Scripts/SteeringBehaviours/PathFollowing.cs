@@ -26,14 +26,10 @@ public class PathFollowing : SteeringBehaviour
         if (graph == null)
         {
             // CALL Debug.LogError() and pass an Error message
-            Debug.LogError(graph);
-        }
-        else
-        {
+            Debug.LogError("Its not working");
             // CALL Debug.Break() (pause the editor)
             Debug.Break();
         }
-
     }
     public void UpdatePath()
     {
@@ -68,11 +64,12 @@ public class PathFollowing : SteeringBehaviour
 
         // IF desiredForce's length is greater than distance
         if (desiredForce.magnitude > distance)
+        {
             // SET desiredForce to desiredForce.normalized * weighting
             desiredForce = desiredForce.normalized * weighting;
             // SET force to desiredForce - owner's velocity
             force = desiredForce - owner.velocity;
-
+        }
         // RETURN force
         return force;
     }
@@ -91,47 +88,46 @@ public class PathFollowing : SteeringBehaviour
             // SET currentPos to path[currentNode] position
             Vector3 currentPos = path[currentNode].position;
             // IF distance between transform's position and currentPos is less than or equal to nodeRadius
-            if (transform.position > currentPos)  
+            // IF (distance between transform's position and currentPos) <= (nodeRadius)
+            // IF (Vector3.Distance(transform.position, currentPos) <= (nodeRadius) 
+
+            if (Vector3.Distance(transform.position, currentPos) <= nodeRadius)
             {
                 // Increment currentNode
                 currentNode++;
+
+                // IF currentNode is greater than or equal to path.count
+                if (currentNode > path.Count)
+                {
+                    // SET currentNode to path.Count -1 
+                    currentNode = path.Count - 1;
+                }
             }
-            
-            // IF currentNode is greater than or equal to path.count
-            if (currentNode > path.Count)
-            {
-                // SET currentNode to path.Count -1 
-                currentNode = path.Count - 1;
-            }
-            else
-            {
-                // SET force to Seek() and pass currentPos
-                force = Seek(currentPos);
-            }
-            
+            // SET force to Seek() and pass currentPos
+            force = Seek(currentPos);
 
             #region GIZMOS
             // SET prevPosition to path[0].position
-
+            Vector3 prevPosition = path[0].position;
             // FOREACH node in path
-
-            // CALL GizmoGL.AddSphere() and pass node's position, graph's nodeRadius, identity, any colour
-
-            // CALL GizmoGL.AddLine() and pass prev, node's position, 0.1f, 0.1f, any color, any color
-
-            // SET prev to node's position
-
+            foreach (Node node in path)
+            {
+                // CALL GizmoGL.AddSphere() and pass node's position, graph's nodeRadius, identity, any colour
+                GizmosGL.AddSphere(node.position, graph.nodeRadius, Quaternion.identity, Color.green);
+                // CALL GizmoGL.AddLine() and pass prev, node's position, 0.1f, 0.1f, any color, any color
+                GizmosGL.AddLine(prevPosition, currentPos, 0.1f, 0.1f, Color.red, Color.blue);
+                // SET prev to node's positio
+                prevPosition = node.position;
+            }
             #endregion
+        }
+        #endregion
 
-            // RETURN force
-            return force;
 
-
+        // RETURN force
+        return force;
     }
-    #endregion
 }
-
-
 
 
 

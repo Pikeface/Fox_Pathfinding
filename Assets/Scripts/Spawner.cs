@@ -44,7 +44,9 @@ public class Spawner : MonoBehaviour
         objects.Add(clone);
 
         // SET clone position to spawner position + position
-        clone.transform.position = transform.position + position;
+        // clone.transform.position = transform.position + position;
+
+
 
         // SET clone's rotation to rotation
         clone.transform.rotation = rotation;
@@ -64,9 +66,9 @@ public class Spawner : MonoBehaviour
         {
             // SET randomPoint to GenerateRandomPoint()
             Vector3 randomPoint = GenerateRandomPoint();
-
+            
             // CALL Spawn() and pass randomPoint, Quaternion identity
-            Spawn(randomPoint, Quaternion.identity);
+            Spawn(transform.position + randomPoint, Quaternion.identity);
 
             // SET spawnTimer to zero 
             spawnTimer = 0f;

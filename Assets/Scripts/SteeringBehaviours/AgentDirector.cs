@@ -10,17 +10,19 @@ public class AgentDirector : MonoBehaviour
     public float rayDistance = 1000f;
     public LayerMask selectionLayer;
     private AIAgent[] agents;
-    
+    public Animator animator; 
+
     void Start()
     {
         // SET Agents to FindObjectsOfType AIAgent
         agents = FindObjectsOfType<AIAgent>();
 
     }
-    
+
     public void ApplySelection()
     {
         // FOREACH agent in agents
+        agents = FindObjectsOfType<AIAgent>();
         foreach (AIAgent agent in agents)
         {
             // SET pathFollowing = agent.Getcomponent<PathFollowing>();
@@ -41,6 +43,9 @@ public class AgentDirector : MonoBehaviour
     {
         // SET ray to ray from camera 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        GizmosGL.AddLine(ray.origin, ray.origin + ray.direction * rayDistance, 0.1f, 0.1f, Color.red, Color.blue);
+
         // SET hit to new RaycastHit 
         RaycastHit hit = new RaycastHit();
         // IF Physics.Raycast() and pass ray, out hit, rayDistance, selectionLayer
@@ -51,6 +56,7 @@ public class AgentDirector : MonoBehaviour
             // IF user clicked left mouse button
             if (Input.GetMouseButtonDown(0))
             {
+                animator.SetFloat("moveSpeed", 1);
                 // SET selectedTarget to hit.collider.transform
                 selectedTarget = hit.collider.transform;
                 // CALL ApplySelection
