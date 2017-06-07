@@ -54,6 +54,7 @@ public class Wander : SteeringBehaviour
 
         #endregion
 
+
         #region GIZMOS
         // SET offsetPos to position + forward x offset
         Vector3 offsetPos = transform.position + transform.forward.normalized * offset;
